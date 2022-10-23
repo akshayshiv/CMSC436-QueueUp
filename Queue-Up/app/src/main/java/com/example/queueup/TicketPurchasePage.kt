@@ -1,18 +1,20 @@
 package com.example.queueup
 
 import android.os.CountDownTimer
-
+import android.widget.TextView
 class TicketPurchasePage {
-  
-  class
-  object : CountDownTimer(30000, 1000) {
+    private lateinit var textView : TextView
+    private lateinit var binding: MainActivity
+
+
+    val timer = object : CountDownTimer(30000, 1000) {
  
       override fun onTick(millisUntilFinished: Long) {
-          mTextField.setText("seconds remaining: " + millisUntilFinished / 1000)
+          textView.setText("Seconds remaining to purchase tickets!: " + millisUntilFinished / 1000)
       }
  
       override fun onFinish() {
-          mTextField.setText("done!")
+          textView.setText("You ran out of time!")
       }
   }.start()
   
@@ -21,7 +23,7 @@ class TicketPurchasePage {
 
             // Update the counter and post the mUpdater Runnable
             with(binding.counter) {
-                text = counter.toString()
+                val text = counter.toString()
                 postDelayed(updater, DELAY)
             }
         } else {
