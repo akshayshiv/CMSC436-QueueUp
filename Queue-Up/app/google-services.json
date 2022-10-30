@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "357336044937",
+    "firebase_url": "https://cmsc436queueup-default-rtdb.firebaseio.com",
+    "project_id": "cmsc436queueup",
+    "storage_bucket": "cmsc436queueup.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:357336044937:android:319c4a3275fa350025bd58",
+        "android_client_info": {
+          "package_name": "com.example.queueup"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "357336044937-7k8a2u50hblukq2sn6icrg6nshdquh8u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAO39VO_YKZrmt3jCQtPkANsWjnQBuxUVI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "357336044937-7k8a2u50hblukq2sn6icrg6nshdquh8u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
