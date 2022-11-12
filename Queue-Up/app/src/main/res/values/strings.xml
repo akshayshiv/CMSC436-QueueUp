@@ -9,4 +9,22 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+
+    <!-- Strings used for fragments for login/registration -->
+    <string name="login_fragment_label">Login Fragment</string>
+    <string name="registration_fragment_label">Registration Fragment</string>
+    <string name="logged_in_user_string">Now you are a logged in user of this app!</string>
+    <string name="account_login_string">Account login</string>
+    <string name="email_hint_string">Email</string>
+    <string name="password_hint_string">Password</string>
+    <string name="login_string">Login</string>
+    <string name="register_string">Register</string>
+    <string name="register_new_account_string">Register new account</string>
+    <string name="register_success_string">Registration successful!</string>
+    <string name="register_failed_string">Registration failed! Please try again later</string>
+    <string name="invalid_password">Password must contain 6 characters with one letter and one number!</string>
+    <string name="invalid_email">Please enter valid email…</string>
+    <string name="login_toast">Please enter email...</string>
+    <string name="password_toast">Please enter password!</string>
+    <string name="logout">Logout</string>
 </resources>
