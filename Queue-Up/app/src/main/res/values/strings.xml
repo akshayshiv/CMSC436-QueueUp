@@ -32,7 +32,17 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_title">ticket test</string>
+    <string name="nav_header_concert">Purchase tickets</string>
+
     <string name="home_label" />
     <string name="logout_label" />
 
+=======
+    <!-- TODO: Remove or change this placeholder text -->
+
+    <!-- Strings used for adding tickets to cart -->
+    <string name="add_to_cart">Checkout!</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+>>>>>>> Stashed changes
 </resources>

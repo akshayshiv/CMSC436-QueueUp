@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TicketPurchaseFragment">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/nav_header_vertical_spacing"
+        android:text="@string/nav_header_concert"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textSize="30dp"
+        android:textColor="@color/white"
+        android:background="@color/pink"></TextView>
+    <!-- TODO: Update blank fragment layout -->
+    <TableRow
+        android:id="@+id/tableRow1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="480dp"
+        android:gravity="center">
+         <Button
+            android:id="@+id/add"
+            android:layout_width="184dp"
+            android:layout_height="wrap_content"
+            android:text="@string/add_to_cart"
+             android:backgroundTint="@color/pink"/>
+
+    </TableRow>
+
+</FrameLayout>
