@@ -1,5 +1,6 @@
 package com.example.queueup
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
@@ -73,10 +74,16 @@ class LoginFragment : Fragment() {
                         "Login successful!",
                         Toast.LENGTH_LONG
                     ).show()
+                    //val test = Intent(this@LoginFragment.context, Dashboard::class.java)
+                    //startActivity(test)
 
-                    findNavController().navigate(
-                        R.id.action_LoginFragment_to_RegistrationFragment // change this to something else
-                    )
+
+                    val intent = Intent(activity, navDrawer::class.java)
+                    startActivity(intent)
+
+                    //findNavController().navigate(
+                    //    R.id.action_LoginFragment_to_Dashboard // change this to something else
+                    //)
                 } else {
                     Toast.makeText(
                         requireContext(),

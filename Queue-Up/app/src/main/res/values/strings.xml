@@ -27,4 +27,12 @@
     <string name="login_toast">Please enter email...</string>
     <string name="password_toast">Please enter password!</string>
     <string name="logout">Logout</string>
+    <string name="dashboard_fragment_label" />
+    <string name="menu_dashboard" />
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_title">ticket test</string>
+    <string name="home_label" />
+    <string name="logout_label" />
+
 </resources>

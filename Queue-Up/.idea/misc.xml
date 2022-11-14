@@ -12,6 +12,24 @@
         <entry key="..\:/School/CMSC436/CMSC436-QueueUp/Queue-Up/app/src/main/res/layout/fragment_login.xml" value="0.3109375" />
         <entry key="..\:/School/CMSC436/CMSC436-QueueUp/Queue-Up/app/src/main/res/layout/fragment_register.xml" value="0.3032128514056225" />
         <entry key="..\:/School/CMSC436/CMSC436-QueueUp/Queue-Up/app/src/main/res/layout/fragment_second.xml" value="0.14994934143870314" />
+        <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.201" />
+        <entry key="app/src/main/res/drawable/box.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.201" />
+        <entry key="app/src/main/res/drawable/side_nav_bar.xml" value="0.1555" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.22447916666666667" />
+        <entry key="app/src/main/res/layout/app_bar_main.xml" value="0.2164855072463768" />
+        <entry key="app/src/main/res/layout/content_main.xml" value="0.22447916666666667" />
+        <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_first.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_login.xml" value="0.22447916666666667" />
+        <entry key="app/src/main/res/layout/fragment_register.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_second.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/nav_drawer.xml" value="0.2164855072463768" />
+        <entry key="app/src/main/res/layout/nav_drawer_main.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/nav_header_main.xml" value="0.2164855072463768" />
+        <entry key="app/src/main/res/menu/activity_main_drawer.xml" value="0.2234375" />
+        <entry key="app/src/main/res/menu/menu_main.xml" value="0.22447916666666667" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1555" />
       </map>
     </option>
   </component>

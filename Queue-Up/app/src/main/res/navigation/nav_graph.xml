@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_LoginFragment_to_RegistrationFragment"
             app:destination="@id/RegistrationFragment" />
+        <action
+            android:id="@+id/action_LoginFragment_to_Dashboard"
+            app:destination="@id/nav_home" />
     </fragment>
 
     <fragment
@@ -22,6 +25,23 @@
         tools:layout="@layout/fragment_register">
         <action
             android:id="@+id/action_RegistrationFragment_to_LoginFragment"
+            app:destination="@id/LoginFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/DashboardFragment"
+        android:name="com.example.queueup.Dashboard"
+        android:label="@string/dashboard_fragment_label"
+        tools:layout="@layout/fragment_dashboard">
+        //all to login for now
+        <action
+            android:id="@+id/action_DashboardFragment_to_concert1"
+            app:destination="@id/LoginFragment" />
+        <action
+            android:id="@+id/action_DashboardFragment_to_concert2"
+            app:destination="@id/LoginFragment" />
+        <action
+            android:id="@+id/action_DashboardFragment_to_concert3"
             app:destination="@id/LoginFragment" />
     </fragment>
 
@@ -46,5 +66,18 @@
             app:destination="@id/FirstFragment" />
     </fragment>
 
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.example.queueup.Dashboard"
+        android:label="@string/home_label"
+        tools:layout="@layout/fragment_dashboard">
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_logout"
+        android:name="com.example.queueup.LoginFragment"
+        android:label="@string/logout_label"
+        tools:layout="@layout/fragment_login">
+    </fragment>
 
 </navigation>
