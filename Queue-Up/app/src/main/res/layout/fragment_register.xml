@@ -29,6 +29,14 @@
         android:inputType="textPassword"
         android:importantForAutofill="no" />
 
+    <EditText
+        android:id="@+id/creditcard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLength="16"
+        android:hint="@string/creditcard_hint_string"
+        android:importantForAutofill="no" />
+
     <TableRow
         android:id="@+id/tableRow1"
         android:layout_width="fill_parent"

@@ -17,12 +17,14 @@
     <string name="account_login_string">Account login</string>
     <string name="email_hint_string">Email</string>
     <string name="password_hint_string">Password</string>
+    <string name="creditcard_hint_string">Credit Card</string>
     <string name="login_string">Login</string>
     <string name="register_string">Register</string>
     <string name="register_new_account_string">Register new account</string>
     <string name="register_success_string">Registration successful!</string>
     <string name="register_failed_string">Registration failed! Please try again later</string>
     <string name="invalid_password">Password must contain 6 characters with one letter and one number!</string>
+    <string name="invalid_creditcard">Credit card needs to be composed with numeric values and have the length of 16</string>
     <string name="invalid_email">Please enter valid email…</string>
     <string name="login_toast">Please enter email...</string>
     <string name="password_toast">Please enter password!</string>

@@ -19,7 +19,7 @@ class Dashboard: Fragment()  {
         super.onCreate(savedInstanceState)
         binding = FragmentDashboardBinding.inflate(inflater, container, false)
         //setContentView(binding.root)
-        Log.i("", "Dashboard-onCreate")
+        Log.i("dash", "Dashboard-onCreate")
 
         //setSupportActionBar(binding.toolbar)
 

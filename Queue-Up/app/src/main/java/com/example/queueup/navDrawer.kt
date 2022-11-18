@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.ui.AppBarConfiguration
+import com.example.queueup.databinding.FragmentDashboardBinding
 import com.example.queueup.databinding.NavDrawerBinding
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
@@ -16,13 +17,13 @@ class navDrawer : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: NavDrawerBinding
+    private lateinit var concertbinding: FragmentDashboardBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.i("debug", "navDrawer")
         binding = NavDrawerBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         setSupportActionBar(binding.appBarMain.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
@@ -31,6 +32,18 @@ class navDrawer : AppCompatActivity() {
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
         }
+
+        binding.fragmentDashboard.concert1.setOnClickListener {
+           Log.i("debug", "clicking concert1")
+            supportFragmentManager.beginTransaction()
+            .replace(R.id.nav_view, TicketPurchaseFragment())
+            .commitNow()
+
+//            Snackbar.make(it, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                .setAction("Action", null).show()
+        }
+
+
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
 

@@ -77,9 +77,11 @@ class LoginFragment : Fragment() {
                     //val test = Intent(this@LoginFragment.context, Dashboard::class.java)
                     //startActivity(test)
 
-
+                    /* Uncomment this to go to the "dashboard" */
                     val intent = Intent(activity, navDrawer::class.java)
                     startActivity(intent)
+
+
 
                     //findNavController().navigate(
                     //    R.id.action_LoginFragment_to_Dashboard // change this to something else
