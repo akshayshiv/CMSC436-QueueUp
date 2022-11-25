@@ -12,7 +12,6 @@ import androidx.navigation.fragment.findNavController
 import com.example.queueup.databinding.FragmentDashboardBinding
 class Dashboard: Fragment()  {
 
-    //private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: FragmentDashboardBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -26,6 +25,16 @@ class Dashboard: Fragment()  {
         binding.concert1.setOnClickListener {
             findNavController().navigate(
                 R.id.action_DashboardFragment_to_concert1
+            )
+        }
+        binding.concert2.setOnClickListener {
+            findNavController().navigate(
+                R.id.action_DashboardFragment_to_concert2
+            )
+        }
+        binding.concert3.setOnClickListener {
+            findNavController().navigate(
+                R.id.action_DashboardFragment_to_concert3
             )
         }
 

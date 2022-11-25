@@ -33,10 +33,12 @@
         android:name="com.example.queueup.TicketPurchaseFragment"
         android:label="Ticket Purchase Fragment"
         tools:layout="@layout/fragment_ticket_purchase">
-        <action
-            android:id="@+id/action_TicketPurchaseFragment_to_Dashboard"
-            app:destination="@id/nav_home" />
+
+
+
+
     </fragment>
+
 
     <fragment
         android:id="@+id/DashboardFragment"
@@ -49,10 +51,10 @@
             app:destination="@id/TicketPurchaseFragment" />
         <action
             android:id="@+id/action_DashboardFragment_to_concert2"
-            app:destination="@id/LoginFragment" />
+            app:destination="@id/TicketPurchaseFragment" />
         <action
             android:id="@+id/action_DashboardFragment_to_concert3"
-            app:destination="@id/LoginFragment" />
+            app:destination="@id/TicketPurchaseFragment" />
     </fragment>
 
 

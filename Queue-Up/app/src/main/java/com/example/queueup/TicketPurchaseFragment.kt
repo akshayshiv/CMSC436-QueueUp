@@ -16,6 +16,7 @@ import java.time.LocalDateTime
 import java.time.temporal.ChronoUnit
 
 
+
 class TicketPurchaseFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private lateinit var binding: FragmentTicketPurchaseBinding
@@ -37,12 +38,8 @@ class TicketPurchaseFragment : Fragment() {
         return binding.root
     }
 
-    fun sanitize_email (email: String?): String {
-        if (email != null) {
-            return email.replace(".",",")
-        } else {
-            return ""
-        }
+    private fun sanitize_email (email: String?): String {
+        return email?.replace(".",",") ?: ""
 
     }
 
@@ -109,13 +106,13 @@ class TicketPurchaseFragment : Fragment() {
                     } else {
                         Toast.makeText(
                             requireContext(),
-                            "${THRESHHOLD - time_diff} second left for you to be able to purchase",
+                            "${THRESHHOLD - time_diff} seconds left for you to be able to purchase tickets",
                             Toast.LENGTH_LONG
                         ).show()
                     }
 
                     /* if the timer ran out, set proceed to true */
-
+                    proceed = true
                 }
 
                 if (it.value == null || proceed){

@@ -4,15 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".TicketPurchaseFragment">
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:text="@string/nav_header_concert"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textSize="30dp"
-        android:textColor="@color/white"
-        android:background="@color/pink"></TextView>
     <!-- TODO: Update blank fragment layout -->
     <TableRow
         android:id="@+id/tableRow1"

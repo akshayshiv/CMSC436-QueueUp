@@ -33,16 +33,6 @@ class navDrawer : AppCompatActivity() {
                 .setAction("Action", null).show()
         }
 
-        binding.fragmentDashboard.concert1.setOnClickListener {
-           Log.i("debug", "clicking concert1")
-            supportFragmentManager.beginTransaction()
-            .replace(R.id.nav_view, TicketPurchaseFragment())
-            .commitNow()
-
-//            Snackbar.make(it, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                .setAction("Action", null).show()
-        }
-
 
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
