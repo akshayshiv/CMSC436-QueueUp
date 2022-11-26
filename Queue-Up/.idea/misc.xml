@@ -25,6 +25,9 @@
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.1887031408308004" />
         <entry key="app/src/main/res/layout/fragment_register.xml" value="0.1887031408308004" />
         <entry key="app/src/main/res/layout/fragment_ticket_purchase.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/nav_drawer.xml" value="0.15045592705167174" />
+        <entry key="app/src/main/res/menu/activity_main_drawer.xml" value="0.3046153846153846" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/hip-hop.xml" value="0.2535" />
       </map>
     </option>
   </component>

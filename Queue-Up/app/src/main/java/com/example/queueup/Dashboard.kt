@@ -26,6 +26,7 @@ class Dashboard: Fragment()  {
             findNavController().navigate(
                 R.id.action_DashboardFragment_to_concert1
             )
+
         }
         binding.concert2.setOnClickListener {
             findNavController().navigate(

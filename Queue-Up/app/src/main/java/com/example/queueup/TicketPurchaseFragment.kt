@@ -14,13 +14,13 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import java.time.LocalDateTime
 import java.time.temporal.ChronoUnit
-
+import android.widget.TextView
+import androidx.drawerlayout.widget.DrawerLayout
 
 
 class TicketPurchaseFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private lateinit var binding: FragmentTicketPurchaseBinding
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,6 +28,7 @@ class TicketPurchaseFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentTicketPurchaseBinding.inflate(inflater, container, false)
+        super.onCreate(savedInstanceState)
 
         Log.i("", "Purchase-tickets")
 
@@ -90,7 +91,6 @@ class TicketPurchaseFragment : Fragment() {
                     if (email == it.child("email").value) {
 
                         /* I AM THE BUYER, create purchase mechanism HERE */
-
                         Log.i("ticket", "I AM THE BUYER")
                     }
 
