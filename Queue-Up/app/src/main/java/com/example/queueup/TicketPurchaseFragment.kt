@@ -1,6 +1,7 @@
 package com.example.queueup
 
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -16,11 +17,13 @@ import java.time.LocalDateTime
 import java.time.temporal.ChronoUnit
 import android.widget.TextView
 import androidx.drawerlayout.widget.DrawerLayout
+import org.w3c.dom.Text
 
 
 class TicketPurchaseFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private lateinit var binding: FragmentTicketPurchaseBinding
+    //private lateinit var textView: TextView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,6 +32,8 @@ class TicketPurchaseFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentTicketPurchaseBinding.inflate(inflater, container, false)
         super.onCreate(savedInstanceState)
+
+
 
         Log.i("", "Purchase-tickets")
 
@@ -39,19 +44,21 @@ class TicketPurchaseFragment : Fragment() {
         return binding.root
     }
 
+
     private fun sanitize_email (email: String?): String {
         return email?.replace(".",",") ?: ""
 
     }
 
     private fun checkout(){
+        val textView: TextView = requireView().findViewById(R.id.textView)
 
         Log.i("", "check_out")
         val firebaseDatabase = FirebaseDatabase.getInstance()
         val myRef = firebaseDatabase.getReference("current_buyer")
 
         /* represents 30 second counter */
-        val THRESHHOLD = 70
+        val THRESHHOLD = 30
 
 
         val user = FirebaseAuth.getInstance().currentUser
@@ -89,6 +96,19 @@ class TicketPurchaseFragment : Fragment() {
 
                     /* OR, is the buyer ME? */
                     if (email == it.child("email").value) {
+                        object : CountDownTimer(30000, 1000) {
+
+                            // Callback function, fired on regular interval
+                            override fun onTick(millisUntilFinished: Long) {
+                                textView.setText("You have " + millisUntilFinished / 1000 + " seconds remaining to check out!")
+                            }
+
+                            // Callback function, fired
+                            // when the time is up
+                            override fun onFinish() {
+                                textView.setText("Done!")
+                            }
+                        }.start()
 
                         /* I AM THE BUYER, create purchase mechanism HERE */
                         Log.i("ticket", "I AM THE BUYER")
@@ -103,12 +123,12 @@ class TicketPurchaseFragment : Fragment() {
                     if (ChronoUnit.SECONDS.between(old_time, curr_time) >= THRESHHOLD) {
                         proceed = true
 
-                    } else {
-                        Toast.makeText(
-                            requireContext(),
-                            "${THRESHHOLD - time_diff} seconds left for you to be able to purchase tickets",
-                            Toast.LENGTH_LONG
-                        ).show()
+//                    } else {
+//                        Toast.makeText(
+//                            requireContext(),
+//                            "${THRESHHOLD - time_diff} seconds left for you to be able to purchase tickets",
+//                            Toast.LENGTH_LONG
+//                        ).show()
                     }
 
                     /* if the timer ran out, set proceed to true */
