@@ -46,13 +46,17 @@
         tools:layout="@layout/fragment_dashboard">
         <action
             android:id="@+id/action_DashboardFragment_to_concert1"
-            app:destination="@id/TicketPurchaseFragment"></action>
+            app:destination="@id/TicketPurchaseFragment"
+            app:enterAnim="@android:anim/slide_in_left"></action>
         <action
             android:id="@+id/action_DashboardFragment_to_concert2"
-            app:destination="@id/TicketPurchaseFragment" />
+            app:destination="@id/TicketPurchaseFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:launchSingleTop="false" />
         <action
             android:id="@+id/action_DashboardFragment_to_concert3"
-            app:destination="@id/TicketPurchaseFragment" />
+            app:destination="@id/TicketPurchaseFragment"
+            app:enterAnim="@android:anim/slide_in_left"/>
 
     </fragment>
 

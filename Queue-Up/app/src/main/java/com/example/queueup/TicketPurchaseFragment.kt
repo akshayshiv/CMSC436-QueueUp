@@ -28,25 +28,24 @@ import org.w3c.dom.Text
 class TicketPurchaseFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private lateinit var binding: FragmentTicketPurchaseBinding
-    private lateinit var dashboardBinding: FragmentDashboardBinding
-    //private lateinit var textView: TextView
     private var inflight = false
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        //dialogView =  inflater.inflate(R.layout., null)
         // Inflate the layout for this fragment
         binding = FragmentTicketPurchaseBinding.inflate(inflater, container, false)
         super.onCreate(savedInstanceState)
 
-        //checkout()
         Log.i("", "Purchase-tickets")
 
         binding.add.setOnClickListener {
-            checkout()
             approvePurchase()
 
         }
+        binding.tableRow1.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->  checkout()}
 
         return binding.root
     }
@@ -63,24 +62,17 @@ class TicketPurchaseFragment : Fragment() {
             // build alert dialog
             val dialogBuilder = AlertDialog.Builder(requireActivity()!!)
 
-            // set message of alert dialog
             dialogBuilder.setMessage("Do you want to complete this purchase ?")
-                // if the dialog is cancelable
                 .setCancelable(true)
-                // positive button text and action
                 .setPositiveButton("Purchase", DialogInterface.OnClickListener { dialog, id ->
-                   dialog.dismiss()
+                    dialog.dismiss()
                 })
-                // negative button text and action
                 .setNegativeButton("Cancel", DialogInterface.OnClickListener { dialog, id ->
                     dialog.cancel()
                 })
 
-            // create dialog box
             val alert = dialogBuilder.create()
-            // set title for alert dialog box
             alert.setTitle("Checkout?")
-            // show alert dialog
             alert.show()
         }
     }

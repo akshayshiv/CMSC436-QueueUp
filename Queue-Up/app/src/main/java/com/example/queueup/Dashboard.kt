@@ -13,20 +13,21 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.queueup.databinding.FragmentDashboardBinding
 import com.example.queueup.databinding.FragmentTicketPurchaseBinding
+import com.google.protobuf.LazyStringArrayList
 
-class Dashboard: Fragment()  {
+class Dashboard: Fragment() {
 
     private lateinit var binding: FragmentDashboardBinding
-    private lateinit var purchaseFragment: FragmentTicketPurchaseBinding
 
 
 
-    @SuppressLint("SetTextI18n")
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         super.onCreate(savedInstanceState)
         binding = FragmentDashboardBinding.inflate(inflater, container, false)
-        purchaseFragment = FragmentTicketPurchaseBinding.inflate(inflater, container, false)
-
         //setContentView(binding.root)
 
 
@@ -46,12 +47,16 @@ class Dashboard: Fragment()  {
             findNavController().navigate(
                 R.id.action_DashboardFragment_to_concert2
             )
+
         }
         binding.concert3.setOnClickListener {
             findNavController().navigate(
                 R.id.action_DashboardFragment_to_concert3
             )
+
+
         }
+
 
 
         return binding.root
