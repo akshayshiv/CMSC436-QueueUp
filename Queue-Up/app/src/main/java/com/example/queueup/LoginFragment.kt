@@ -28,6 +28,7 @@ class LoginFragment : Fragment() {
 
         firebaseAuth = requireNotNull(FirebaseAuth.getInstance())
 
+
         binding.register.setOnClickListener {
             findNavController().navigate(
                 R.id.action_LoginFragment_to_RegistrationFragment

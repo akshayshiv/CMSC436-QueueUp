@@ -23,13 +23,14 @@ import androidx.appcompat.app.AlertDialog
 import androidx.drawerlayout.widget.DrawerLayout
 import com.example.queueup.databinding.FragmentDashboardBinding
 import org.w3c.dom.Text
+import java.lang.IllegalStateException
 
 
 class TicketPurchaseFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private lateinit var binding: FragmentTicketPurchaseBinding
     private var inflight = false
-
+    private var returned = false
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -40,14 +41,18 @@ class TicketPurchaseFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         Log.i("", "Purchase-tickets")
+        try{
+            binding.add.setOnClickListener {
+                approvePurchase()
 
-        binding.add.setOnClickListener {
-            approvePurchase()
-
+            }
+            binding.tableRow1.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ -> checkout() }
+        } catch (e: IllegalStateException){
+            return binding.root
         }
-        binding.tableRow1.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->  checkout()}
-
+        returned = true
         return binding.root
+
     }
 
 
@@ -144,10 +149,10 @@ class TicketPurchaseFragment : Fragment() {
                             // when the time is up
                             override fun onFinish() {
                                 textView.setText("You ran out of time!")
-                                val button: Button = requireView().findViewById(R.id.add)
-                                button.isEnabled = false
-
-
+                                if(returned) {
+                                    val button: Button = requireView()?.findViewById(R.id.add)
+                                    button.isEnabled = false
+                                }
                             }
                         }.start()
 
