@@ -1,11 +1,14 @@
 package com.example.queueup
 
+import android.annotation.SuppressLint
+import android.content.DialogInterface
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -16,15 +19,18 @@ import com.google.firebase.database.FirebaseDatabase
 import java.time.LocalDateTime
 import java.time.temporal.ChronoUnit
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.drawerlayout.widget.DrawerLayout
+import com.example.queueup.databinding.FragmentDashboardBinding
 import org.w3c.dom.Text
 
 
 class TicketPurchaseFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private lateinit var binding: FragmentTicketPurchaseBinding
+    private lateinit var dashboardBinding: FragmentDashboardBinding
     //private lateinit var textView: TextView
-
+    private var inflight = false
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -33,24 +39,62 @@ class TicketPurchaseFragment : Fragment() {
         binding = FragmentTicketPurchaseBinding.inflate(inflater, container, false)
         super.onCreate(savedInstanceState)
 
-
-
+        //checkout()
         Log.i("", "Purchase-tickets")
 
-        binding.add.setOnClickListener{
+        binding.add.setOnClickListener {
             checkout()
+            approvePurchase()
+
         }
 
         return binding.root
     }
 
 
+
     private fun sanitize_email (email: String?): String {
         return email?.replace(".",",") ?: ""
 
     }
+    private fun approvePurchase() {
+        val btnShowAlert: Button = requireView().findViewById(R.id.add)
+        btnShowAlert.setOnClickListener {
+            // build alert dialog
+            val dialogBuilder = AlertDialog.Builder(requireActivity()!!)
+
+            // set message of alert dialog
+            dialogBuilder.setMessage("Do you want to complete this purchase ?")
+                // if the dialog is cancelable
+                .setCancelable(true)
+                // positive button text and action
+                .setPositiveButton("Purchase", DialogInterface.OnClickListener { dialog, id ->
+                   dialog.dismiss()
+                })
+                // negative button text and action
+                .setNegativeButton("Cancel", DialogInterface.OnClickListener { dialog, id ->
+                    dialog.cancel()
+                })
+
+            // create dialog box
+            val alert = dialogBuilder.create()
+            // set title for alert dialog box
+            alert.setTitle("Checkout?")
+            // show alert dialog
+            alert.show()
+        }
+    }
 
     private fun checkout(){
+        if(inflight){
+            Toast.makeText(
+                requireContext(),
+               "Already started checkout process!",
+                Toast.LENGTH_LONG
+            ).show()
+            return
+        }
+        inflight = true
         val textView: TextView = requireView().findViewById(R.id.textView)
 
         Log.i("", "check_out")
@@ -96,6 +140,7 @@ class TicketPurchaseFragment : Fragment() {
 
                     /* OR, is the buyer ME? */
                     if (email == it.child("email").value) {
+                        approvePurchase()
                         object : CountDownTimer(30000, 1000) {
 
                             // Callback function, fired on regular interval
@@ -106,9 +151,14 @@ class TicketPurchaseFragment : Fragment() {
                             // Callback function, fired
                             // when the time is up
                             override fun onFinish() {
-                                textView.setText("Done!")
+                                textView.setText("You ran out of time!")
+                                val button: Button = requireView().findViewById(R.id.add)
+                                button.isEnabled = false
+
+
                             }
                         }.start()
+
 
                         /* I AM THE BUYER, create purchase mechanism HERE */
                         Log.i("ticket", "I AM THE BUYER")
