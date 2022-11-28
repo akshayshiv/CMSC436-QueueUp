@@ -11,6 +11,18 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="480dp"
         android:gravity="center">
+
+
+
+    </TableRow>
+    <TableRow
+        android:id="@+id/tableRow2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="480dp"
+        android:gravity="center">
+
+
          <Button
             android:id="@+id/add"
             android:layout_width="184dp"
@@ -19,5 +31,32 @@
              android:backgroundTint="@color/pink"/>
 
     </TableRow>
+
+    <ImageView
+        android:id= "@+id/concert"
+        android:layout_width="293dp"
+        android:layout_height="347dp"
+        android:layout_marginTop="150dp"
+        android:layout_marginLeft="50dp"
+        android:src="@drawable/buytickets"
+        android:visibility="visible" />
+
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="118dp"
+        android:background="?android:attr/detailsElementBackground"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="Ready to Checkout?"
+        android:textColor="@color/pink"
+        android:textSize="36sp"
+        android:textStyle="bold"></TextView>
+
+
+
+
+
+
 
 </FrameLayout>

@@ -15,7 +15,7 @@
             app:destination="@id/RegistrationFragment" />
         <action
             android:id="@+id/action_LoginFragment_to_Dashboard"
-            app:destination="@id/nav_home" />
+            app:destination="@id/DashboardFragment" />
     </fragment>
 
     <fragment
@@ -31,38 +31,34 @@
     <fragment
         android:id="@+id/TicketPurchaseFragment"
         android:name="com.example.queueup.TicketPurchaseFragment"
-        android:label="Ticket Purchase Fragment"
-        tools:layout="@layout/fragment_ticket_purchase">
-
-
-
+        android:label="Checkout Concert!"
+        tools:layout="@layout/fragment_ticket_purchase"
+        >
 
     </fragment>
+
 
 
     <fragment
         android:id="@+id/DashboardFragment"
         android:name="com.example.queueup.Dashboard"
-        android:label="@string/dashboard_fragment_label"
+        android:label="Welcome to Ticketmaster!"
         tools:layout="@layout/fragment_dashboard">
-        //all to login for now
         <action
             android:id="@+id/action_DashboardFragment_to_concert1"
-            app:destination="@id/TicketPurchaseFragment" />
+            app:destination="@id/TicketPurchaseFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            ></action>
         <action
             android:id="@+id/action_DashboardFragment_to_concert2"
-            app:destination="@id/TicketPurchaseFragment" />
+            app:destination="@id/TicketPurchaseFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:launchSingleTop="false" />
         <action
             android:id="@+id/action_DashboardFragment_to_concert3"
-            app:destination="@id/TicketPurchaseFragment" />
-    </fragment>
+            app:destination="@id/TicketPurchaseFragment"
+            app:enterAnim="@android:anim/slide_in_left"/>
 
-
-    <fragment
-        android:id="@+id/nav_home"
-        android:name="com.example.queueup.Dashboard"
-        android:label="@string/home_label"
-        tools:layout="@layout/fragment_dashboard">
     </fragment>
 
     <fragment

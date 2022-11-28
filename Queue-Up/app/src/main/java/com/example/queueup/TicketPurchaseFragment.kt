@@ -1,62 +1,120 @@
 package com.example.queueup
 
+import android.content.Context
+import android.content.DialogInterface
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.queueup.databinding.FragmentTicketPurchaseBinding
-import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import java.time.LocalDateTime
 import java.time.temporal.ChronoUnit
 
 
-
 class TicketPurchaseFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private lateinit var binding: FragmentTicketPurchaseBinding
-
-
+    private var inflight = false
+    private var returned = false
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        returned = false
+        //dialogView =  inflater.inflate(R.layout., null)
         // Inflate the layout for this fragment
         binding = FragmentTicketPurchaseBinding.inflate(inflater, container, false)
+        super.onCreate(savedInstanceState)
 
         Log.i("", "Purchase-tickets")
+        try{
+            binding.add.setOnClickListener {
+                approvePurchase()
 
-        binding.add.setOnClickListener{
-            checkout()
+            }
+            binding.tableRow1.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ -> checkout() }
+        } catch (e: IllegalStateException){
+            return binding.root
         }
-
+        returned = true
         return binding.root
+
+
+
     }
+
+
 
     private fun sanitize_email (email: String?): String {
         return email?.replace(".",",") ?: ""
 
     }
+    private fun approvePurchase() {
+        try{
+            val btnShowAlert: Button = requireView().findViewById(R.id.add)
+            btnShowAlert.setOnClickListener {
+                // build alert dialog
+                val dialogBuilder = AlertDialog.Builder(requireActivity())
+
+                dialogBuilder.setMessage("Do you want to complete this purchase ?")
+                    .setCancelable(true)
+                    .setPositiveButton("Purchase", DialogInterface.OnClickListener { dialog, _ ->
+                        activity?.onBackPressed()
+                        Toast.makeText(
+                            requireContext(),
+                            "Purchase Successful!",
+                            Toast.LENGTH_LONG
+                        ).show()
+                        dialog.dismiss()
+                    })
+                    .setNegativeButton("Cancel", DialogInterface.OnClickListener { dialog, _ ->
+                        findNavController().navigate(R.id.DashboardFragment)
+                        dialog.cancel()
+                    })
+
+                val alert = dialogBuilder.create()
+                alert.setTitle("Checkout?")
+                alert.show()
+            }
+        }catch(e:IllegalStateException) {
+            return
+        }
+
+    }
 
     private fun checkout(){
+        if(inflight){
+            Toast.makeText(
+                requireContext(),
+               "Already started checkout process!",
+                Toast.LENGTH_LONG
+            ).show()
+            return
+        }
+        inflight = true
+        val textView: TextView = requireView().findViewById(R.id.textView)
 
         Log.i("", "check_out")
         val firebaseDatabase = FirebaseDatabase.getInstance()
-        val myRef = firebaseDatabase.getReference("current_buyer")
 
         /* represents 30 second counter */
-        val THRESHHOLD = 70
+        val THRESHHOLD = 30
 
 
         val user = FirebaseAuth.getInstance().currentUser
         if (user != null) {
             // User is signed in
-            val name = user.displayName
             val email = user.email
             val san_email = sanitize_email(email)
 
@@ -88,9 +146,31 @@ class TicketPurchaseFragment : Fragment() {
 
                     /* OR, is the buyer ME? */
                     if (email == it.child("email").value) {
+                        approvePurchase()
+                        object : CountDownTimer(30000, 1000) {
+
+                            // Callback function, fired on regular interval
+                            override fun onTick(millisUntilFinished: Long) {
+                                textView.setText("You have " + millisUntilFinished / 1000 + " seconds remaining to check out!")
+                            }
+
+                            // Callback function, fired
+                            // when the time is up
+                            override fun onFinish() {
+                                textView.setText("You ran out of time!")
+                                if(returned) {
+                                    try{
+                                        val button: Button = requireView()?.findViewById(R.id.add)
+                                        button.isEnabled = false
+                                    } catch(e:IllegalStateException){
+                                        return
+                                    }
+                                }
+                            }
+                        }.start()
+
 
                         /* I AM THE BUYER, create purchase mechanism HERE */
-
                         Log.i("ticket", "I AM THE BUYER")
                     }
 
@@ -103,12 +183,12 @@ class TicketPurchaseFragment : Fragment() {
                     if (ChronoUnit.SECONDS.between(old_time, curr_time) >= THRESHHOLD) {
                         proceed = true
 
-                    } else {
-                        Toast.makeText(
-                            requireContext(),
-                            "${THRESHHOLD - time_diff} seconds left for you to be able to purchase tickets",
-                            Toast.LENGTH_LONG
-                        ).show()
+//                    } else {
+//                        Toast.makeText(
+//                            requireContext(),
+//                            "${THRESHHOLD - time_diff} seconds left for you to be able to purchase tickets",
+//                            Toast.LENGTH_LONG
+//                        ).show()
                     }
 
                     /* if the timer ran out, set proceed to true */
@@ -144,3 +224,4 @@ class TicketPurchaseFragment : Fragment() {
 
 
 }
+
