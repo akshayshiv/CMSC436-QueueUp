@@ -1,6 +1,6 @@
 package com.example.queueup
 
-import android.annotation.SuppressLint
+import android.content.Context
 import android.content.DialogInterface
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -9,21 +9,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.queueup.databinding.FragmentTicketPurchaseBinding
-import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import java.time.LocalDateTime
 import java.time.temporal.ChronoUnit
-import android.widget.TextView
-import androidx.appcompat.app.AlertDialog
-import androidx.drawerlayout.widget.DrawerLayout
-import com.example.queueup.databinding.FragmentDashboardBinding
-import org.w3c.dom.Text
-import java.lang.IllegalStateException
 
 
 class TicketPurchaseFragment : Fragment() {
@@ -54,6 +50,8 @@ class TicketPurchaseFragment : Fragment() {
         returned = true
         return binding.root
 
+
+
     }
 
 
@@ -72,7 +70,7 @@ class TicketPurchaseFragment : Fragment() {
                 dialogBuilder.setMessage("Do you want to complete this purchase ?")
                     .setCancelable(true)
                     .setPositiveButton("Purchase", DialogInterface.OnClickListener { dialog, _ ->
-                        findNavController().navigate(R.id.DashboardFragment)
+                        activity?.onBackPressed()
                         Toast.makeText(
                             requireContext(),
                             "Purchase Successful!",
@@ -81,6 +79,7 @@ class TicketPurchaseFragment : Fragment() {
                         dialog.dismiss()
                     })
                     .setNegativeButton("Cancel", DialogInterface.OnClickListener { dialog, _ ->
+                        findNavController().navigate(R.id.DashboardFragment)
                         dialog.cancel()
                     })
 
@@ -225,3 +224,4 @@ class TicketPurchaseFragment : Fragment() {
 
 
 }
+
