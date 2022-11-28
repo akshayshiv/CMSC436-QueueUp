@@ -39,12 +39,12 @@
     <string name="home_label" />
     <string name="logout_label" />
 
-=======
+    =======
     <!-- TODO: Remove or change this placeholder text -->
 
     <!-- Strings used for adding tickets to cart -->
     <string name="add_to_cart">Checkout!</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
->>>>>>> Stashed changes
+    >>>>>>> Stashed changes
 </resources>

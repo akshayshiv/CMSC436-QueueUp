@@ -35,6 +35,7 @@ class TicketPurchaseFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        returned = false
         //dialogView =  inflater.inflate(R.layout., null)
         // Inflate the layout for this fragment
         binding = FragmentTicketPurchaseBinding.inflate(inflater, container, false)
@@ -62,24 +63,35 @@ class TicketPurchaseFragment : Fragment() {
 
     }
     private fun approvePurchase() {
-        val btnShowAlert: Button = requireView().findViewById(R.id.add)
-        btnShowAlert.setOnClickListener {
-            // build alert dialog
-            val dialogBuilder = AlertDialog.Builder(requireActivity()!!)
+        try{
+            val btnShowAlert: Button = requireView().findViewById(R.id.add)
+            btnShowAlert.setOnClickListener {
+                // build alert dialog
+                val dialogBuilder = AlertDialog.Builder(requireActivity())
 
-            dialogBuilder.setMessage("Do you want to complete this purchase ?")
-                .setCancelable(true)
-                .setPositiveButton("Purchase", DialogInterface.OnClickListener { dialog, id ->
-                    dialog.dismiss()
-                })
-                .setNegativeButton("Cancel", DialogInterface.OnClickListener { dialog, id ->
-                    dialog.cancel()
-                })
+                dialogBuilder.setMessage("Do you want to complete this purchase ?")
+                    .setCancelable(true)
+                    .setPositiveButton("Purchase", DialogInterface.OnClickListener { dialog, _ ->
+                        findNavController().navigate(R.id.DashboardFragment)
+                        Toast.makeText(
+                            requireContext(),
+                            "Purchase Successful!",
+                            Toast.LENGTH_LONG
+                        ).show()
+                        dialog.dismiss()
+                    })
+                    .setNegativeButton("Cancel", DialogInterface.OnClickListener { dialog, _ ->
+                        dialog.cancel()
+                    })
 
-            val alert = dialogBuilder.create()
-            alert.setTitle("Checkout?")
-            alert.show()
+                val alert = dialogBuilder.create()
+                alert.setTitle("Checkout?")
+                alert.show()
+            }
+        }catch(e:IllegalStateException) {
+            return
         }
+
     }
 
     private fun checkout(){
@@ -96,7 +108,6 @@ class TicketPurchaseFragment : Fragment() {
 
         Log.i("", "check_out")
         val firebaseDatabase = FirebaseDatabase.getInstance()
-        val myRef = firebaseDatabase.getReference("current_buyer")
 
         /* represents 30 second counter */
         val THRESHHOLD = 30
@@ -105,7 +116,6 @@ class TicketPurchaseFragment : Fragment() {
         val user = FirebaseAuth.getInstance().currentUser
         if (user != null) {
             // User is signed in
-            val name = user.displayName
             val email = user.email
             val san_email = sanitize_email(email)
 
@@ -150,8 +160,12 @@ class TicketPurchaseFragment : Fragment() {
                             override fun onFinish() {
                                 textView.setText("You ran out of time!")
                                 if(returned) {
-                                    val button: Button = requireView()?.findViewById(R.id.add)
-                                    button.isEnabled = false
+                                    try{
+                                        val button: Button = requireView()?.findViewById(R.id.add)
+                                        button.isEnabled = false
+                                    } catch(e:IllegalStateException){
+                                        return
+                                    }
                                 }
                             }
                         }.start()
