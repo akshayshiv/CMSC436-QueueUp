@@ -85,6 +85,7 @@ class Dashboard: Fragment() {
     }
 
     private fun update(){
+        Log.i("dash", "Dashboard-update")
         if(arr.size == 0){
             return
         }

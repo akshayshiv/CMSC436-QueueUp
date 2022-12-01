@@ -34,6 +34,10 @@
         android:label="Checkout Concert!"
         tools:layout="@layout/fragment_ticket_purchase"
         >
+        <argument
+            android:name="myArg"
+            app:argType="string"
+            android:defaultValue="" />
 
     </fragment>
 
@@ -47,17 +51,29 @@
         <action
             android:id="@+id/action_DashboardFragment_to_concert1"
             app:destination="@id/TicketPurchaseFragment"
-            app:enterAnim="@android:anim/slide_in_left"
-            ></action>
+            app:enterAnim="@android:anim/slide_in_left">
+            <argument
+            android:name="myArg"
+            app:argType="string"
+            android:defaultValue="concert1" /> </action>
         <action
             android:id="@+id/action_DashboardFragment_to_concert2"
             app:destination="@id/TicketPurchaseFragment"
             app:enterAnim="@android:anim/slide_in_left"
-            app:launchSingleTop="false" />
+            app:launchSingleTop="false">
+            <argument
+            android:name="myArg"
+            app:argType="string"
+            android:defaultValue="concert2" /> </action>
         <action
             android:id="@+id/action_DashboardFragment_to_concert3"
             app:destination="@id/TicketPurchaseFragment"
-            app:enterAnim="@android:anim/slide_in_left"/>
+            app:enterAnim="@android:anim/slide_in_left">
+            <argument
+                android:name="myArg"
+                app:argType="string"
+                android:defaultValue="concert3"/>
+        </action>
 
     </fragment>
 

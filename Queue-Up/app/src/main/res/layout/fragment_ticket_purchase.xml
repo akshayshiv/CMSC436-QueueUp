@@ -32,15 +32,15 @@
 
     </TableRow>
 
+
     <ImageView
-        android:id= "@+id/concert"
+        android:id="@+id/concert"
         android:layout_width="293dp"
         android:layout_height="347dp"
-        android:layout_marginTop="150dp"
         android:layout_marginLeft="50dp"
+        android:layout_marginTop="150dp"
         android:src="@drawable/buytickets"
         android:visibility="visible" />
-
 
     <TextView
         android:id="@+id/textView"
@@ -53,10 +53,15 @@
         android:textSize="36sp"
         android:textStyle="bold"></TextView>
 
-
-
-
-
-
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:layout_marginTop="120dp"
+        android:background="?android:attr/detailsElementBackground"
+        android:gravity="center_horizontal|center_vertical"
+        android:textColor="@color/pink"
+        android:textSize="36sp"
+        android:textStyle="bold"></TextView>
 
 </FrameLayout>
