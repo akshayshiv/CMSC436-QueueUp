@@ -15,6 +15,8 @@ import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+
 import com.example.queueup.databinding.FragmentTicketPurchaseBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
@@ -27,6 +29,9 @@ class TicketPurchaseFragment : Fragment() {
     private lateinit var binding: FragmentTicketPurchaseBinding
     private var inflight = false
     private var returned = false
+    val firebaseDatabase = FirebaseDatabase.getInstance()
+    val args: TicketPurchaseFragmentArgs by navArgs()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -60,6 +65,87 @@ class TicketPurchaseFragment : Fragment() {
         return email?.replace(".",",") ?: ""
 
     }
+
+    /* I give up dealing with the null stuff in kotlin lmao you can try fixing it if you want *sparkling* prettier *sparkling* code */
+//    private fun get_user(user): Array<String> {
+//
+//        val email = user.email
+//        val san_email = sanitize_email(email)
+//
+//        /* call sanitize_email(email) to the database to retrieve the user info... like the credit card */
+//        Log.i("ticket", "name ${san_email}")
+//        var Ref = firebaseDatabase.getReference()
+//
+//
+//        var creditcard: String? = ""
+//        Ref.child("users").child(san_email).get().addOnSuccessListener {
+//            // Log.i("ticket", "value of it for creditcard ${it.child("creditcard").value}")
+//
+//            if (it.value != null) {
+//                creditcard = it.child("creditcard").value as String?
+//            }
+//        }
+//
+//        return arrayOf(email, creditcard)
+//
+//    }
+
+    private fun update_db_after_purchase() {
+        val current_concert = args.myArg
+        val firebaseDatabase = FirebaseDatabase.getInstance()
+        var myRef = firebaseDatabase.getReference()
+        val user = FirebaseAuth.getInstance().currentUser
+
+
+
+        if (user != null) {
+            // User is signed in
+
+            val email = user.email
+            val san_email = sanitize_email(email)
+
+            /* call sanitize_email(email) to the database to retrieve the user info... like the credit card */
+            Log.i("ticket", "name ${san_email}")
+            var Ref = firebaseDatabase.getReference()
+
+
+            var creditcard: String? = ""
+            Ref.child("users").child(san_email).get().addOnSuccessListener {
+                // Log.i("ticket", "value of it for creditcard ${it.child("creditcard").value}")
+
+                if (it.value != null) {
+                    creditcard = it.child("creditcard").value as String?
+                }
+
+
+                myRef.child(current_concert).child(san_email).get().addOnSuccessListener {
+
+                    Log.i("update_db", "value of it ${it}")
+
+                    if (it.value != null) {
+
+                        Log.i("update_db", "user already bought before, increment")
+
+                        var myRef = firebaseDatabase.getReference(current_concert)
+
+                        myRef.child(san_email).setValue(it.value.toString().toInt() + 1)
+
+                    } else {
+                        Log.i("update_db", "user have not bought before, add to db")
+
+                        var myRef = firebaseDatabase.getReference(current_concert)
+
+                        myRef.child(san_email).setValue(1)
+                    }
+
+
+                }.addOnFailureListener {
+                    Log.i("registration", "call to snapshot failed")
+                }
+            }
+        }
+    }
+
     private fun approvePurchase() {
         try{
             val btnShowAlert: Button = requireView().findViewById(R.id.add)
@@ -76,6 +162,9 @@ class TicketPurchaseFragment : Fragment() {
                             "Purchase Successful!",
                             Toast.LENGTH_LONG
                         ).show()
+
+                        update_db_after_purchase()
+
                         dialog.dismiss()
                     })
                     .setNegativeButton("Cancel", DialogInterface.OnClickListener { dialog, _ ->
@@ -93,7 +182,35 @@ class TicketPurchaseFragment : Fragment() {
 
     }
 
+    private fun timer() {
+        val textView: TextView = requireView().findViewById(R.id.textView)
+        object : CountDownTimer(30000, 1000) {
+
+            // Callback function, fired on regular interval
+            override fun onTick(millisUntilFinished: Long) {
+                textView.setText("You have " + millisUntilFinished / 1000 + " seconds remaining to check out!")
+            }
+
+            // Callback function, fired
+            // when the time is up
+            override fun onFinish() {
+                textView.setText("You ran out of time!")
+                if(returned) {
+                    try{
+                        val button: Button = requireView()?.findViewById(R.id.add)
+                        button.isEnabled = false
+                    } catch(e:IllegalStateException){
+                        return
+                    }
+                }
+            }
+        }.start()
+    }
+
     private fun checkout(){
+
+        Log.i("Ticket Purchase", args.myArg)
+
         if(inflight){
             Toast.makeText(
                 requireContext(),
@@ -113,8 +230,12 @@ class TicketPurchaseFragment : Fragment() {
 
 
         val user = FirebaseAuth.getInstance().currentUser
+
+
+
         if (user != null) {
             // User is signed in
+
             val email = user.email
             val san_email = sanitize_email(email)
 
@@ -130,8 +251,8 @@ class TicketPurchaseFragment : Fragment() {
                 if (it.value != null) {
                     creditcard = it.child("creditcard").value as String?
                 }
-
             }
+
 
 
             /* Checks if the database already has a buyer */
@@ -147,27 +268,7 @@ class TicketPurchaseFragment : Fragment() {
                     /* OR, is the buyer ME? */
                     if (email == it.child("email").value) {
                         approvePurchase()
-                        object : CountDownTimer(30000, 1000) {
-
-                            // Callback function, fired on regular interval
-                            override fun onTick(millisUntilFinished: Long) {
-                                textView.setText("You have " + millisUntilFinished / 1000 + " seconds remaining to check out!")
-                            }
-
-                            // Callback function, fired
-                            // when the time is up
-                            override fun onFinish() {
-                                textView.setText("You ran out of time!")
-                                if(returned) {
-                                    try{
-                                        val button: Button = requireView()?.findViewById(R.id.add)
-                                        button.isEnabled = false
-                                    } catch(e:IllegalStateException){
-                                        return
-                                    }
-                                }
-                            }
-                        }.start()
+                        timer()
 
 
                         /* I AM THE BUYER, create purchase mechanism HERE */
@@ -181,23 +282,26 @@ class TicketPurchaseFragment : Fragment() {
                     Log.i("ticket", "time difference of the entry and current time ${time_diff}")
 
                     if (ChronoUnit.SECONDS.between(old_time, curr_time) >= THRESHHOLD) {
+                        /* if the timer ran out, set proceed to true */
                         proceed = true
 
-//                    } else {
-//                        Toast.makeText(
-//                            requireContext(),
-//                            "${THRESHHOLD - time_diff} seconds left for you to be able to purchase tickets",
-//                            Toast.LENGTH_LONG
-//                        ).show()
+                    } else {
+
+                        textView.setText("Another buyer is in the queue right now!")
+                        try{
+                            val button: Button = requireView()?.findViewById(R.id.add)
+                            button.isEnabled = false
+                        } catch(e:IllegalStateException){
+
+                        }
+
                     }
 
-                    /* if the timer ran out, set proceed to true */
-                    proceed = true
                 }
 
                 if (it.value == null || proceed){
                     Log.i("ticket", "safe to proceed, either no buyer exists or old_buyer timed out")
-
+                    timer()
                     val userRef = firebaseDatabase.getReference("curr_buyer")
 
                     val userInfo = User_Info((LocalDateTime.now()).toString(), email, creditcard)
