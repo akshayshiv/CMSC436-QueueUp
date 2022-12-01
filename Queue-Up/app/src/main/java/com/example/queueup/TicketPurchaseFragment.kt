@@ -97,7 +97,6 @@ class TicketPurchaseFragment : Fragment() {
         val user = FirebaseAuth.getInstance().currentUser
 
 
-
         if (user != null) {
             // User is signed in
 
@@ -146,7 +145,10 @@ class TicketPurchaseFragment : Fragment() {
         }
     }
 
+
+
     private fun approvePurchase() {
+
         try{
             val btnShowAlert: Button = requireView().findViewById(R.id.add)
             btnShowAlert.setOnClickListener {
@@ -157,6 +159,8 @@ class TicketPurchaseFragment : Fragment() {
                     .setCancelable(true)
                     .setPositiveButton("Purchase", DialogInterface.OnClickListener { dialog, _ ->
                         activity?.onBackPressed()
+
+
                         Toast.makeText(
                             requireContext(),
                             "Purchase Successful!",
@@ -164,6 +168,7 @@ class TicketPurchaseFragment : Fragment() {
                         ).show()
 
                         update_db_after_purchase()
+                        /* call checkout to update the current db */
 
                         dialog.dismiss()
                     })
@@ -182,9 +187,17 @@ class TicketPurchaseFragment : Fragment() {
 
     }
 
-    private fun timer() {
+    private fun timer(init_time: Long) {
         val textView: TextView = requireView().findViewById(R.id.textView)
-        object : CountDownTimer(30000, 1000) {
+
+        try{
+            val button: Button = requireView()?.findViewById(R.id.add)
+            button.isEnabled = true
+        } catch(e:IllegalStateException){
+
+        }
+
+        object : CountDownTimer(init_time, 1000) {
 
             // Callback function, fired on regular interval
             override fun onTick(millisUntilFinished: Long) {
@@ -211,15 +224,16 @@ class TicketPurchaseFragment : Fragment() {
 
         Log.i("Ticket Purchase", args.myArg)
 
-        if(inflight){
-            Toast.makeText(
-                requireContext(),
-               "Already started checkout process!",
-                Toast.LENGTH_LONG
-            ).show()
-            return
-        }
-        inflight = true
+//        if(inflight){
+//            Toast.makeText(
+//                requireContext(),
+//               "Already started checkout process!",
+//                Toast.LENGTH_LONG
+//            ).show()
+//            return
+//        }
+//        inflight = true
+
         val textView: TextView = requireView().findViewById(R.id.textView)
 
         Log.i("", "check_out")
@@ -264,81 +278,90 @@ class TicketPurchaseFragment : Fragment() {
                 if (it.value != null) {
 
                     /* buyer already exists, has their timer run out? */
+                    val old_time = LocalDateTime.parse(it.child("currtime").value as CharSequence?)
+                    val curr_time = LocalDateTime.now()
+
+                    var time_diff = ChronoUnit.SECONDS.between(old_time, curr_time)
+
+                    Log.i("ticket", "time difference of the entry and current time ${time_diff}")
 
                     /* OR, is the buyer ME? */
                     if (email == it.child("email").value) {
+
                         approvePurchase()
-                        timer()
+
+                        if (time_diff >= THRESHHOLD) {
+                            proceed = true
+                            time_diff = 30
+                        }
+
+
+                        timer(30000 - time_diff * 1000)
 
 
                         /* I AM THE BUYER, create purchase mechanism HERE */
                         Log.i("ticket", "I AM THE BUYER")
-                    }
-
-                    val old_time = LocalDateTime.parse(it.child("currtime").value as CharSequence?)
-                    val curr_time = LocalDateTime.now()
-
-                    val time_diff = ChronoUnit.SECONDS.between(old_time, curr_time)
-                    Log.i("ticket", "time difference of the entry and current time ${time_diff}")
-
-                    if (ChronoUnit.SECONDS.between(old_time, curr_time) >= THRESHHOLD) {
-                        /* if the timer ran out, set proceed to true */
-                        proceed = true
-
                     } else {
-                        val textView1: TextView = requireView().findViewById(R.id.textView1)
-                        textView.setText("Another buyer is in the queue right now!")
 
-                        try{
-                            val button: Button = requireView()?.findViewById(R.id.add)
-                            button.isEnabled = false
-                        } catch(e:IllegalStateException){
+                        if (ChronoUnit.SECONDS.between(old_time, curr_time) >= THRESHHOLD) {
+                            /* if the timer ran out, set proceed to true */
+                            proceed = true
+
+                        } else {
+                            val textView1: TextView = requireView().findViewById(R.id.textView1)
+                            textView.setText("Another buyer is in the queue right now!")
+
+                            try{
+                                val button: Button = requireView()?.findViewById(R.id.add)
+                                button.isEnabled = false
+                            } catch(e:IllegalStateException){
+
+                            }
+
+                            object : CountDownTimer(30000 - time_diff * 1000, 1000) {
+
+                                // Callback function, fired on regular interval
+                                override fun onTick(millisUntilFinished: Long) {
+
+                                    textView1.setText("The buyer in queue has " + millisUntilFinished / 1000 + " seconds remaining to check out!")
+
+                                }
+
+                                // Callback function, fired
+                                // when the time is up
+                                override fun onFinish() {
+                                    textView.setText("You can buy now!")
+                                    textView1.setText("")
+
+
+                                    /* Needed here to deal with multiple user trying to buy at once */
+                                    val userRef = firebaseDatabase.getReference("curr_buyer")
+
+                                    val userInfo = User_Info((LocalDateTime.now()).toString(), email, creditcard)
+
+                                    userRef.child("buyer").setValue(userInfo)
+
+                                    Log.i("ticket", "onFinish")
+                                    proceed = true
+
+                                    if(returned) {
+                                        /* tries to handle cases when multiple people were waiting in the queue */
+                                        checkout()
+                                    }
+                                }
+                            }.start()
 
                         }
 
-                        object : CountDownTimer(30000 - time_diff * 1000, 1000) {
-
-                            // Callback function, fired on regular interval
-                            override fun onTick(millisUntilFinished: Long) {
-
-                                textView1.setText("The buyer in queue has " + millisUntilFinished / 1000 + " seconds remaining to check out!")
-
-                            }
-
-                            // Callback function, fired
-                            // when the time is up
-                            override fun onFinish() {
-                                textView.setText("You can buy now!")
-                                textView1.setText("")
-
-
-                                /* Not sure if needed here I am not sure what happens if more than one user is waiting in line. */
-                                val userRef = firebaseDatabase.getReference("curr_buyer")
-
-                                val userInfo = User_Info((LocalDateTime.now()).toString(), email, creditcard)
-
-                                userRef.child("buyer").setValue(userInfo)
-
-                                proceed = true
-
-                                if(returned) {
-                                    try{
-                                        val button: Button = requireView()?.findViewById(R.id.add)
-                                        button.isEnabled = true
-                                    } catch(e:IllegalStateException){
-                                        return
-                                    }
-                                }
-                            }
-                        }.start()
-
                     }
+
 
                 }
 
                 if (it.value == null || proceed){
                     Log.i("ticket", "safe to proceed, either no buyer exists or old_buyer timed out")
-                    timer()
+                    timer(30000)
+
                     val userRef = firebaseDatabase.getReference("curr_buyer")
 
                     val userInfo = User_Info((LocalDateTime.now()).toString(), email, creditcard)
