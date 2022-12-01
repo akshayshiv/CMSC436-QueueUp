@@ -4,7 +4,10 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/School/CMSC436-QueueUp/Queue-Up/app/src/main/res/layout/fragment_dashboard.xml" value="0.27447916666666666" />
+<<<<<<< HEAD
         <entry key="..\:/School/CMSC436-QueueUp/Queue-Up/app/src/main/res/layout/fragment_register.xml" value="0.27447916666666666" />
+=======
+>>>>>>> 1e7a9fe510f9b77f2957c90efd9192571df30b37
         <entry key="..\:/School/CMSC436-QueueUp/Queue-Up/app/src/main/res/layout/fragment_ticket_purchase.xml" value="0.27447916666666666" />
         <entry key="..\:/School/CMSC436/CMSC436-QueueUp/Queue-Up/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2435" />
         <entry key="..\:/School/CMSC436/CMSC436-QueueUp/Queue-Up/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2435" />
