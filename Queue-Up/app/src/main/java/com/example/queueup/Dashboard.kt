@@ -64,13 +64,23 @@ class Dashboard: Fragment() {
 
 
         }
+        /* Edit back to after implementing button for account info */
+//        binding.concert3.setOnClickListener {
+//            findNavController().navigate(
+//                R.id.action_DashboardFragment_to_concert3
+//            )
+//            arr.add("Country Concert")
+//
+//        }
+
         binding.concert3.setOnClickListener {
             findNavController().navigate(
-                R.id.action_DashboardFragment_to_concert3
+                R.id.action_dashboard_to_accountinfo
             )
             arr.add("Country Concert")
 
         }
+
         binding.textView.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ -> update() }
 
 
@@ -91,7 +101,6 @@ class Dashboard: Fragment() {
         }
         val text: TextView = requireView()?.findViewById(R.id.MyEvents)
         text.text = "My Upcoming Event: \n " + arr[arr.size - 1]
-
 
     }
 }

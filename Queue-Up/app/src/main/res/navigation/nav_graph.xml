@@ -41,7 +41,15 @@
 
     </fragment>
 
-
+    <fragment
+        android:id="@+id/AccountInfoFragment"
+        android:name="com.example.queueup.AccountInfo"
+        android:label="@string/logout_label"
+        tools:layout="@layout/fragment_accountinfo">
+        <action
+            android:id="@+id/action_AccountInfo_to_Dashboard"
+            app:destination="@id/DashboardFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/DashboardFragment"
@@ -72,10 +80,16 @@
             <argument
                 android:name="myArg"
                 app:argType="string"
-                android:defaultValue="concert3"/>
-        </action>
+                android:defaultValue="concert3"/> </action>
+
+        <action
+            android:id="@+id/action_dashboard_to_accountinfo"
+            app:destination="@id/AccountInfoFragment" />
+
 
     </fragment>
+
+
 
     <fragment
         android:id="@+id/nav_logout"

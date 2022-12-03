@@ -117,31 +117,32 @@ class TicketPurchaseFragment : Fragment() {
                 }
 
 
-                myRef.child(current_concert).child(san_email).get().addOnSuccessListener {
+            myRef.child(current_concert).child(san_email).get().addOnSuccessListener {
 
-                    Log.i("update_db", "value of it ${it}")
+                Log.i("update_db", "value of it ${it}")
 
-                    if (it.value != null) {
+                if (it.value != null) {
 
-                        Log.i("update_db", "user already bought before, increment")
+                    Log.i("update_db", "user already bought before, increment")
 
-                        var myRef = firebaseDatabase.getReference(current_concert)
+                    var myRef = firebaseDatabase.getReference(current_concert)
 
-                        myRef.child(san_email).setValue(it.value.toString().toInt() + 1)
+                    myRef.child(san_email).setValue(it.value.toString().toInt() + 1)
 
-                    } else {
-                        Log.i("update_db", "user have not bought before, add to db")
+                } else {
+                    Log.i("update_db", "user have not bought before, add to db")
 
-                        var myRef = firebaseDatabase.getReference(current_concert)
+                    var myRef = firebaseDatabase.getReference(current_concert)
 
-                        myRef.child(san_email).setValue(1)
-                    }
+                    myRef.child(san_email).setValue(1)
+                }
 
-
-                }.addOnFailureListener {
+            }.addOnFailureListener {
                     Log.i("registration", "call to snapshot failed")
                 }
             }
+
+
         }
     }
 
