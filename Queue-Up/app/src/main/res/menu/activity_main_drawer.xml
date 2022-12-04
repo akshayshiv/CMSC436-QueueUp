@@ -5,7 +5,7 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/DashboardFragment"
+            android:id="@+id/home"
             android:title="Home"/>
         <item
             android:id="@+id/logout"

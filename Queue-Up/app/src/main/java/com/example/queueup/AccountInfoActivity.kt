@@ -7,13 +7,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.queueup.databinding.FragmentAccountinfoBinding
+import com.example.queueup.databinding.NavDrawerBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 
 
-class AccountInfo: Fragment() {
+class AccountInfoActivity: AppCompatActivity() {
 
     private lateinit var binding: FragmentAccountinfoBinding
 
@@ -24,25 +26,20 @@ class AccountInfo: Fragment() {
 
     }
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
+        binding = FragmentAccountinfoBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        Log.i("Accountinfo", "Accountinfo oncreate")
 
 
     }
 
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-
-        super.onCreate(savedInstanceState)
-        binding = FragmentAccountinfoBinding.inflate(inflater, container, false)
-
-        Log.i("Accountinfo", "Accountinfo oncreate")
-
-        val v: View = inflater.inflate(com.example.queueup.R.layout.fragment_accountinfo, container, false)
+    override fun onStart() {
+        super.onStart()
+        val v: View = binding.root
 
         val firebaseDatabase = FirebaseDatabase.getInstance()
         var myRef = firebaseDatabase.getReference()
@@ -127,9 +124,12 @@ class AccountInfo: Fragment() {
 
 
         }
+    }
+    override fun onResume() {
+        super.onResume()
 
+        onStart()
 
-        return v
     }
 }
 

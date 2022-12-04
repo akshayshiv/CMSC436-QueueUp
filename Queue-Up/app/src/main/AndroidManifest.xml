@@ -13,7 +13,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.QueueUp"
         tools:targetApi="31">
-        <activity android:name=".navDrawer"
+        <activity android:name=".NavDrawerActivity"
+            android:exported="true"
+            android:theme="@style/Theme.QueueUp.NoActionBar"/>
+        <activity android:name=".TicketPurchaseActivity"
+            android:exported="true"
+            android:theme="@style/Theme.QueueUp.NoActionBar"/>
+        <activity android:name=".AccountInfoActivity"
             android:exported="true"
             android:theme="@style/Theme.QueueUp.NoActionBar"/>
         <activity

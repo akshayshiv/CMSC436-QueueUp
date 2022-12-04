@@ -11,7 +11,7 @@
         android:layout_height="118dp"
         android:background="?android:attr/detailsElementBackground"
         android:gravity="center_horizontal|center_vertical"
-        android:text="Ready to Checkout?"
+        android:text="email"
         android:textColor="@color/pink"
         android:textSize="36sp"
         android:textStyle="bold"></TextView>
@@ -23,7 +23,7 @@
         android:layout_marginTop="120dp"
         android:background="?android:attr/detailsElementBackground"
         android:gravity="center_horizontal|center_vertical"
-        android:text="Ready to Checkout?"
+        android:text="purchasedevents"
         android:textColor="@color/pink"
         android:textSize="36sp"
         android:textStyle="bold"></TextView>

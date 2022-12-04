@@ -1,6 +1,6 @@
 package com.example.queueup
 
-class Validators {
+class ValidatorsFunction {
     fun validEmail(email: String?) : Boolean {
         if (email.isNullOrEmpty()) {
             return false

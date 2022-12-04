@@ -16,7 +16,7 @@ import java.time.LocalDateTime
 
 class RegistrationFragment : Fragment() {
 
-    private var validator = Validators()
+    private var validator = ValidatorsFunction()
     private lateinit var auth: FirebaseAuth
 
     private lateinit var binding: FragmentRegisterBinding
@@ -138,7 +138,7 @@ class RegistrationFragment : Fragment() {
                             *   time is not really needed to be stored, but the class had to be created anyways for the priority queue. */
                             val userRef = firebaseDatabase.getReference("users")
 
-                            val userInfo = User_Info((LocalDateTime.now()).toString(), email, creditcard)
+                            val userInfo = UserInfoClass((LocalDateTime.now()).toString(), email, creditcard)
 
                             userRef.child(sanitize_email(email)).setValue(userInfo)
 

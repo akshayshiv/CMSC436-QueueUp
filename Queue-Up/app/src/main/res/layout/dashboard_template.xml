@@ -3,76 +3,85 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/dashboard_template">
 
     <Button
         android:id="@+id/concert1"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="51dp"
+        android:layout_marginTop="50dp"
         android:layout_marginEnd="51dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="421dp"
+        android:layout_marginBottom="400dp"
         android:backgroundTint="@color/pink"
         android:text="Hip-Hop Concert"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
         tools:ignore="MissingConstraints" />
+
+
     <Button
         android:id="@+id/concert2"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="51dp"
+        android:layout_marginTop="220dp"
         android:layout_marginEnd="51dp"
-        android:layout_marginTop="150dp"
-        android:layout_marginBottom="280dp"
+        android:layout_marginBottom="270dp"
         android:backgroundTint="@color/pink"
         android:text="Rock Concert"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="1.0"
         tools:ignore="MissingConstraints" />
+
     <Button
         android:id="@+id/concert3"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="51dp"
+        android:layout_marginTop="350dp"
         android:layout_marginEnd="51dp"
-        android:layout_marginTop="300dp"
-        android:layout_marginBottom="130dp"
+        android:layout_marginBottom="140dp"
         android:backgroundTint="@color/pink"
         android:text="Country Music Concert"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="1.0"
         tools:ignore="MissingConstraints" />
-
 
     <TextView
         android:id="@+id/MyEvents"
         android:layout_width="208dp"
         android:layout_height="162dp"
         android:fontFamily="sans-serif-medium"
-        android:text="No Upcoming Events"
+        android:text="Next Upcoming Event:"
+
         android:textColor="@color/pink"
         android:textSize="20dp"
         app:layout_constraintBottom_toTopOf="@+id/concert1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.921"
+        app:layout_constraintHorizontal_bias="0.857"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintVertical_bias="0.787"
         tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="160dp"
         android:layout_height="0dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="81dp"
         android:layout_marginBottom="33dp"
         android:fontFamily="sans-serif-medium"
@@ -82,4 +91,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

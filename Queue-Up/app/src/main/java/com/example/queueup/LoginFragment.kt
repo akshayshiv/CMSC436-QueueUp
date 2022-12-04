@@ -79,14 +79,14 @@ class LoginFragment : Fragment() {
                     //startActivity(test)
 
                     /* Uncomment this to go to the "dashboard" */
-//                    val intent = Intent(activity, navDrawer::class.java)
-//                    startActivity(intent)
+                    val intent = Intent(activity, NavDrawerActivity::class.java)
+                    startActivity(intent)
 
 
 
-                    findNavController().navigate(
-                        R.id.action_LoginFragment_to_Dashboard // change this to something else
-                    )
+//                    findNavController().navigate(
+//                        R.id.action_LoginFragment_to_Dashboard // change this to something else
+//                    )
                 } else {
                     Toast.makeText(
                         requireContext(),

@@ -13,9 +13,7 @@
         <action
             android:id="@+id/action_LoginFragment_to_RegistrationFragment"
             app:destination="@id/RegistrationFragment" />
-        <action
-            android:id="@+id/action_LoginFragment_to_Dashboard"
-            app:destination="@id/DashboardFragment" />
+
     </fragment>
 
     <fragment
@@ -28,74 +26,7 @@
             app:destination="@id/LoginFragment" />
     </fragment>
 
-    <fragment
-        android:id="@+id/TicketPurchaseFragment"
-        android:name="com.example.queueup.TicketPurchaseFragment"
-        android:label="Checkout Concert!"
-        tools:layout="@layout/fragment_ticket_purchase"
-        >
-        <argument
-            android:name="myArg"
-            app:argType="string"
-            android:defaultValue="" />
-
-    </fragment>
-
-    <fragment
-        android:id="@+id/AccountInfoFragment"
-        android:name="com.example.queueup.AccountInfo"
-        android:label="@string/logout_label"
-        tools:layout="@layout/fragment_accountinfo">
-        <action
-            android:id="@+id/action_AccountInfo_to_Dashboard"
-            app:destination="@id/DashboardFragment" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/DashboardFragment"
-        android:name="com.example.queueup.Dashboard"
-        android:label="Welcome to Ticketmaster!"
-        tools:layout="@layout/fragment_dashboard">
-        <action
-            android:id="@+id/action_DashboardFragment_to_concert1"
-            app:destination="@id/TicketPurchaseFragment"
-            app:enterAnim="@android:anim/slide_in_left">
-            <argument
-            android:name="myArg"
-            app:argType="string"
-            android:defaultValue="concert1" /> </action>
-        <action
-            android:id="@+id/action_DashboardFragment_to_concert2"
-            app:destination="@id/TicketPurchaseFragment"
-            app:enterAnim="@android:anim/slide_in_left"
-            app:launchSingleTop="false">
-            <argument
-            android:name="myArg"
-            app:argType="string"
-            android:defaultValue="concert2" /> </action>
-        <action
-            android:id="@+id/action_DashboardFragment_to_concert3"
-            app:destination="@id/TicketPurchaseFragment"
-            app:enterAnim="@android:anim/slide_in_left">
-            <argument
-                android:name="myArg"
-                app:argType="string"
-                android:defaultValue="concert3"/> </action>
-
-        <action
-            android:id="@+id/action_dashboard_to_accountinfo"
-            app:destination="@id/AccountInfoFragment" />
 
 
-    </fragment>
-
-
-
-    <fragment
-        android:id="@+id/nav_logout"
-        android:name="com.example.queueup.LoginFragment"
-        android:label="@string/logout_label"
-        tools:layout="@layout/fragment_login">
-    </fragment>
 
 </navigation>
